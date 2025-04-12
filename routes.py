@@ -16,7 +16,7 @@ def index():
         return redirect(url_for('dashboard'))
     return redirect(url_for('login'))
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/login.html', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('dashboard'))
@@ -36,7 +36,7 @@ def login():
     
     return render_template('login.html', title='Sign In', form=form)
 
-@app.route('/register', methods=['GET', 'POST'])
+@app.route('/register.html', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
         return redirect(url_for('dashboard'))
@@ -69,7 +69,7 @@ def logout():
     logout_user()
     return redirect(url_for('login'))
 
-@app.route('/dashboard')
+@app.route('/dashboard.html')
 @login_required
 def dashboard():
     # Get active tasks (non-completed)
@@ -351,7 +351,7 @@ def new_category():
     
     return render_template('category_form.html', title='New Category', form=form)
 
-@app.route('/achievements')
+@app.route('/achievements.html')
 @login_required
 def achievements():
     user_achievements = Achievement.query.filter_by(user_id=current_user.id).order_by(
@@ -384,7 +384,7 @@ def achievements():
         Achievement=Achievement
     )
 
-@app.route('/progress')
+@app.route('/progress.html')
 @login_required
 def progress():
     # Get tracking tasks
@@ -436,7 +436,7 @@ def progress():
         category_stats=category_stats
     )
 
-@app.route('/profile')
+@app.route('/profile.html')
 @login_required
 def profile():
     tasks_count = Task.query.filter_by(user_id=current_user.id).count()
